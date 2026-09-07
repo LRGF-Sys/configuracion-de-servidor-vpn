@@ -6,7 +6,7 @@ Esta sección documenta la creación e inyección del archivo de configuración 
 
 Para evitar que el tráfico general de internet de los usuarios remotos (ubicados en México) viaje innecesariamente hacia el nodo de IONOS en otra región, se omitió la directiva global `redirect-gateway`. En su lugar, se configuraron políticas de enrutamiento selectivo:
 
-* **Enrutamiento Corporativo Exclusivo:** El servidor instruye de forma dinámica a la tabla de enrutamiento del cliente que envíe por el túnel cifrado *únicamente* los paquetes destinados al rango de red privada de la organización (ej: `10.8.0.0/24`).
+* **Enrutamiento Corporativo Exclusivo:** El servicio instruye de forma dinámica a la tabla de enrutamiento del cliente que envíe por el túnel cifrado *únicamente* los paquetes destinados al rango de red privada restringido de la organización (`10.8.0.0/28`).
 * **Navegación Local y Consultas DNS:** El tráfico público (redes sociales, navegación web, streaming) se resuelve a través del proveedor de internet (ISP) local de cada colaborador, eliminando la degradación de velocidad transatlántica.
 
 ---
@@ -35,8 +35,8 @@ key "C:\\Program Files\\OpenVPN\\config\\server.key"
 dh "C:\\Program Files\\OpenVPN\\config\\dh.pem"
 tls-crypt "C:\\Program Files\\OpenVPN\\config\\tls-crypt.key"
 
-# Pool de Direccionamiento IP Privado para los clientes VPN
-server 10.8.0.0 255.255.255.0
+# Pool de Direccionamiento IP Privado limitado para los 10 clientes VPN asignados
+server 10.8.0.0 255.255.255.240
 
 # Mantener registro de las IPs asignadas dinámicamente a los clientes
 ifconfig-pool-persist "C:\\Program Files\(\OpenVPN\log\ipp.\)txt"
@@ -44,8 +44,8 @@ ifconfig-pool-persist "C:\\Program Files\(\OpenVPN\log\ipp.\)txt"
 # ==========================================
 # 🔀 DIRECTIVAS DE SPLIT TUNNELING (NIST Compliant)
 # ==========================================
-# Se le "empuja" al cliente la ruta exclusiva de la red interna de la empresa
-push "route 10.8.0.0 255.255.255.0"
+# Se le "empuja" al cliente la ruta exclusiva y limitada de la red interna de la empresa
+push "route 10.8.0.0 255.255.255.240"
 
 # Evitar la fuga de DNS corporativo SIN afectar la navegación pública en México
 # Reemplaza 'tuempresa.local' por el sufijo de dominio interno real de tu cliente
