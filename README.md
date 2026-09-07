@@ -22,6 +22,6 @@ Para facilitar la auditoría y revisión técnica del proyecto, la documentació
 
 * **Resolución Eficiente de Nombres (DNS):** Se optimizó el enrutamiento de consultas DNS, permitiendo que la navegación general se resuelva de forma local para mejorar el rendimiento, mientras que el tráfico estrictamente corporativo es dirigido de manera segura.
 
-* **Optimización de Infraestructura Cloud:** Al canalizar únicamente el tráfico de negocio por el túnel, se redujo drásticamente el consumo de ancho de banda y la carga de procesamiento en el servidor Windows Server 2022, maximizando el rendimiento de la instancia en IONOS.
+* **Optimización de Infraestructura Cloud:** Al canalizar únicamente el tráfico de negocio por el túnel bajo un segmento optimizado (`10.8.0.0/28`), se redujo el consumo de ancho de banda y la carga de procesamiento en la instancia de IONOS.
 
 * **Seguridad Perimetral y Defensa en Profundidad:** Control de acceso restringido en dos capas independientes: a nivel externo mediante filtrado dinámico (DDNS) en el panel de IONOS, y a nivel interno mediante el firewall de Windows Server con una cuenta de servicio aislada bajo privilegios mínimos.
